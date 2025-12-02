@@ -1,0 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* index.php layout */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body{
+    background-color:  #81027b;
+    background: linear-gradient(to right, #f755b3, #aa407e);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.container{
+    background-color: #fff;
+    border-radius: 50px;
+    box-shadow: 0  5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 630px;
+    max-width: 630px;
+    min-height: 400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 20px;
+    right: -46%;
+    top: 6%;
+    transform: translateX(-50%);
+}
+
+/* Container for the image on the left */
+.picture-container {
+    flex: 1; /* Take up 50% of the page */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 22%;
+    top: 22%;
+    transform: translateX(-50%);
+}
+
+.picture-container img {
+    max-width: 450px; /* Set the maximum width of the image */
+    max-height: 450px; /* Set the maximum height of the image */
+    width: auto; /* Ensure the image adjusts its width according to the max-width */
+    height: auto; /* Ensure the image adjusts its height according to the max-height */
+    border-radius: 20px; /* Add border radius for image */
+}
+
+.nav{
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    line-height: 100px;
+    background: linear-gradient(rgba(34, 31, 31, 0.6), transparent);
+    z-index: 100;
+}
+
+.nav-logo p{
+    color: #0066d3;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    font-family: 'Dancing Script', cursive;
+    font-weight: 600;
+    font-size: 30px;
+    font-weight: 600;
+    margin-left: 20px;
+}
+
+.container p{
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.3px;
+    margin: 20px 0;
+}
+
+.container span1{
+    font-size: 13px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    width: 220px;
+}
+
+.container span2{
+    font-size: 14px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    width: 200px;
+}
+
+.container a{
+    color: #050505;
+    font-size: 13px;
+    text-decoration: none;
+    margin: 15px 0 10px;
+}
+
+.container button{
+    background-color: #0056b3;
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.container button:hover{
+    background-color: #007bff9f;
+    color: #000000;
+}
+
+.container button.hidden{
+    background-color: #d06ff7ad;
+    border-color: #d06ff7ad;
+}
+
+.container button.hidden:hover{
+    background-color: #e0a8f7ad;
+    border-color: #e0a8f7ad;
+}
+
+.container form{
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+    width: 100%;
+}
+
+.container input{
+    background-color: #eee;
+    border: none;
+    margin: 6px 0;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+}
+
+.form-container{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-in{
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.container.active .sign-in{
+    transform: translateX(100%);
+}
+
+.sign-up{
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.container.active .sign-up{
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: move 0.6s;
+}
+
+@keyframes move{
+    0%, 49.99%{
+        opacity: 0;
+        z-index: 1;
+    }
+    50%, 100%{
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+.container form h1 {
+    font-size: 30px; /* Adjust the font size as needed */
+    width: 120px; 
+}
+
+.container form h2 {
+    font-size: 30px; /* Adjust the font size as needed */
+    width: 250px
+}
+
+.social-icons{
+    margin: 10px 0;
+}
+
+.social-icons a{
+    border: 1px solid #ccc;
+    border-radius: 20%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 3px;
+    width: 37px;
+    height: 37px;
+}
+
+.toggle-container{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+    border-radius: 150px 0 0 100px;
+    z-index: 1000;
+}
+
+.container.active .toggle-container{
+    transform: translateX(-100%);
+    border-radius: 0 150px 100px 0;
+}
+
+.toggle{
+    background-color: #7a01aa;
+    height: 100%;
+    background: linear-gradient(to the right, #9831d4, #961acf);
+    color: #fff;
+    position: relative;
+    left:  -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.container.active .toggle{
+    transform: translateX(50%);
+}
+
+.toggle-panel{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 30px;
+    text-align: center;
+    top: 0;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.toggle-left{
+    transform: translateX(-200%);
+}
+
+.container.active .toggle-left{
+    transform: translateX(0);
+}
+
+.toggle-right{
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.active .toggle-right{
+    transform: translateX(200%);
+} 
+
+/* Error message for Email and Password */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* For Forgot Password and Remember Me */
+.form-bottom {
+    display: flex;
+    justify-content: space-between;
+    /*align-items: center;*/
+    margin-top: 4px;
+    color: #000000;
+    width: 300px;
+}
+
+.form-bottom .one1 {
+    display: flex;
+    align-items: center;
+}
+
+.form-bottom .one1 label {
+    font-size: 14px; /* Adjust font size as needed */
+    margin-right: 5px; /* Add some space between checkbox and label */
+    margin-left: -5px;
+    margin-top: 5px;
+}
+
+.one1 label {
+    width: 110px;
+}
+
+.form-bottom .one2 {
+    display: flex;
+    align-items: center;
+}
+
+.form-bottom .one2 label {
+    font-size: 14px; /* Adjust font size as needed */
+    margin-right: 5px; /* Add some space between checkbox and label */
+    margin-left: -5px;
+}
+
+.one2 label {
+    width: 110px;
+}
+
+.form-bottom .two1 label a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 14px; /* Adjust font size as needed */
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.two1 label a:hover{
+    text-decoration: underline;
+}
+
+.two2 label a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 14px; /* Adjust font size as needed */
+}
+
+.two2 label a:hover{
+    text-decoration: underline;
+}
