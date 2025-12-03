@@ -16,7 +16,7 @@ $user_id = $_SESSION['user_id'];
 
 // Function to retrieve tasks data
 function getTasks($conn, $user_id) {
-    $sql = "SELECT task_id, task_name, task_description, deadline, status FROM task WHERE user_id = ?";
+    $sql = "SELECT task_id, task_name, task_description, deadline, status FROM task WHERE user_id = ? AND status != 'Complete' AND deadline BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
@@ -31,7 +31,7 @@ function getTasks($conn, $user_id) {
 
 // Function to retrieve goals data
 function getGoals($conn, $user_id) {
-    $sql = "SELECT goal_id, goal_name, goal_description, progress, goal_deadline FROM goal WHERE user_id = ?";
+    $sql = "SELECT goal_id, goal_name, goal_description, progress, goal_deadline FROM goal WHERE user_id = ? AND progress < 100 AND goal_deadline BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
@@ -58,6 +58,8 @@ $goals = getGoals($conn, $user_id);
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
     <title>Reminder</title>
     <style>
         body {
@@ -74,16 +76,32 @@ $goals = getGoals($conn, $user_id);
             font-size: 50px;
             font-weight: 600;
         }
+        .side-by-side {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 40px;
+        }
+        .side-by-side > div,
+        .side-by-side > main {
+            flex: 1;
+        }
+
         main {
-            width: 80%;
+            width: 70%;
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-top: 40px;
         }
         #calendar {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 900px;
+            margin-top:10px; 
         }
         #event-details {
             width: 100%;
@@ -133,27 +151,86 @@ $goals = getGoals($conn, $user_id);
             top: 20px;
             left: 20px;
         }
+
+        /* Highlight the event dot and text on the calendar */
+        .fc-daygrid-event {
+            font-weight: 600;
+            border-radius: 6px;
+            padding: 3px;
+        }
+
+        /* Improve visibility of colored deadlines */
+        .fc-daygrid-event-dot {
+            border-color: inherit !important;
+        }
+
     </style>
 </head>
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/locales-all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/daygrid/main.min.js"></script>
+
     <a href="home.php">Back to Home</a>
     <h4>Reminder</h4>
-    <main>
-        <div id="calendar"></div>
-        <div id="event-details" style="display:none;">
-            <h2>Event Details</h2>
-            <p id="event-title"></p>
-            <p id="event-description"></p>
-            <button onclick="document.getElementById('event-details').style.display='none'">Close</button>
-        </div>
-    </main>
 
+    <div class="side-by-side">
+        <?php if (!empty($tasks) || !empty($goals)) : ?>
+            <div style="
+                background:#fff; 
+                padding:20px; 
+                margin-top:50px; 
+                margin-left: 50px;
+                border-radius:10px;
+                width:60%;
+                max-width:600px;
+                box-shadow:0 0 10px rgba(0,0,0,0.2);
+                font-family: 'Poppins', sans-serif;
+            ">
+                <h2 style="margin-top:0; color:#81027b;">⏰ Upcoming Deadlines </h2>
+
+                <?php foreach ($tasks as $t): ?>
+                    <p style="margin-bottom:15px;">
+                        <strong>Task:</strong> <?= htmlspecialchars($t['task_name']) ?>  
+                        <br>
+                        <span style="display:inline-block; margin-top:8px;">
+                            <strong>Deadline:</strong> <?= $t['deadline'] ?>
+                        </span>
+                    </p>
+                    <hr>
+                <?php endforeach; ?>
+
+                <?php foreach ($goals as $g): ?>
+                    <p style="margin-bottom:15px;">
+                        <strong>Goal:</strong> <?= htmlspecialchars($g['goal_name']) ?>  
+                        <br>
+                        <span style="display:inline-block; margin-top:8px;">
+                            <strong>Deadline:</strong> <?= $g['goal_deadline'] ?>
+                        </span>
+                    </p>
+                    <hr>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
+        <main>
+            <div id="calendar"></div>
+            <div id="event-details" style="display:none;">
+                <h2>Event Details</h2>
+                <p id="event-title"></p>
+                <p id="event-description"></p>
+                <button onclick="document.getElementById('event-details').style.display='none'">Close</button>
+            </div>
+        </main>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
+                eventDisplay: 'block',
                 events: [
                     <?php foreach ($tasks as $task) { ?>
                         {
@@ -161,6 +238,8 @@ $goals = getGoals($conn, $user_id);
                             start: '<?php echo $task['deadline']; ?>',
                             description: '<?php echo htmlspecialchars($task['task_description']); ?>',
                             backgroundColor: '#f755b3', // Task deadline color
+                            borderColor: '#f755b3',
+                            textColor: '#fff'
                         },
                     <?php } ?>
                     <?php foreach ($goals as $goal) { ?>
@@ -169,6 +248,9 @@ $goals = getGoals($conn, $user_id);
                             start: '<?php echo $goal['goal_deadline']; ?>',
                             description: '<?php echo htmlspecialchars($goal['goal_description']); ?>',
                             backgroundColor: '#aa407e', // Goal deadline color
+                            borderColor: '#aa407e',
+                            textColor: '#fff'
+
                         },
                     <?php } ?>
                 ],

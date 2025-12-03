@@ -314,6 +314,25 @@ $goals = getGoals($conn, $user_id);
 
     </main>
 
+    <div class="footer footer">
+        <h3>About</h3>
+        <p class="footer-text">
+            This website helps you stay organized by tracking your tasks, goals, and productivity in a simple and motivating way.
+        </p>
+        
+        <h3>Follow Us</h3>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 Be_Productive! All rights reserved.</p>
+        </div>
+    </div>
+
 <!-- Layout for Home page -->
 <style>
 *{
@@ -484,13 +503,13 @@ main {
 }
 
 .listpic {
-    display: center;
+    display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    position: absolute;
     margin-right: 20px;
     right: -290px; /* Adjust as needed */
-    top: 400px; /* Adjust as needed */
+    top: 700px; /* Adjust as needed */
     transform: translate(-50%, -50%);
 }
 
@@ -507,7 +526,7 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 400px;
     text-align: center;
-    position: absolute;
+    position: fixed;
     top: 59%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -661,7 +680,7 @@ td {
 }
 /* Styles for the buttons */
 .btn {
-    padding: 6px 12px;
+    padding: 6px 10px;
     cursor: pointer;
     border: none;
     border-radius: 6px;
@@ -672,15 +691,15 @@ td {
 }
 .btn-read {
     background-color: #4CAF50;
-    margin-left: 10px;
+    margin-left: 8px;
 }
 .btn-edit {
     background-color: #2196F3;
-    margin-left: 10px;
+    margin-left: 8px;
 }
 .btn-delete {
     background-color: #f44336;
-    margin-left: 10px;
+    margin-left: 8px;
 }
 .btn-read:hover {
     background-color: #45a049; /* Darken the color on hover */
@@ -697,6 +716,63 @@ td {
 .btn-delete:hover {
     background-color: #d32f2f; /* Darken the color on hover */
     color: black;
+    opacity: 0.8;
+}
+
+.footer.footer {
+    height: auto;    
+    width: 700px;
+    background: rgba(255, 255, 255, 0.3); /* transparent like header */
+    backdrop-filter: blur(5px);
+    padding: 10px 10px;
+    margin-top: 50px;
+    border-radius: 20px;
+    color: #ffffff;
+    margin-left: 85px;
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: column;     
+    align-items: center;
+    text-align: center;
+}
+
+.footer h3 {
+    font-size: 21px;
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+}
+
+.footer-text {
+    margin-top: 5px;      /* small spacing only */
+    margin-bottom: 10px;
+    line-height: 1.3;
+    max-width: 650px;     /* keeps text neat, not stretched */
+    font-size: 15px;
+}
+
+.footer-section p {
+    font-size: 10px;
+    margin: 0;
+}
+
+.social-links a {
+    color: #ffffff;
+    font-size: 22px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    opacity: 0.6;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 15px;
     opacity: 0.8;
 }
 
