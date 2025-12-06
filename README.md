@@ -77,7 +77,7 @@ Good communication and teamwork among stakeholders are crucial for the success o
 <table align="center">
   <tr>
     <td align="center" bgcolor="#050505" style="padding: 20px;">
-      <img src="ERD.PNG" width="1000" alt="ERD">
+      <img src="ERD.PNG" width="800" alt="ERD">
     </td>
   </tr>
 </table> 
