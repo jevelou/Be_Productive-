@@ -74,6 +74,16 @@ Good communication and teamwork among stakeholders are crucial for the success o
 
 ---
 
+<table align="center">
+  <tr>
+    <td align="center" bgcolor="#050505" style="padding: 20px;">
+      <img src="ERD.png" width="1000" alt="ERD">
+    </td>
+  </tr>
+</table> 
+
+---
+
 ### Database Schema (SQL)
 
 ```sql
